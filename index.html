@@ -1,36 +1,38 @@
 <!DOCTYPE html>
-<html lang="ja">
+<html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <title>中国語電卓</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>中文计算器</title>
     <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/pinyin-pro"></script>
 </head>
 <body>
     <div class="calculator">
-        <input type="text" id="display" disabled>
+        <div class="display" id="display"></div>
         <div class="buttons">
-            <button class="number" data-value="1">1</button>
-            <button class="number" data-value="2">2</button>
-            <button class="number" data-value="3">3</button>
-            <button class="operator" data-value="+">+</button>
-            <button class="number" data-value="4">4</button>
-            <button class="number" data-value="5">5</button>
-            <button class="number" data-value="6">6</button>
-            <button class="operator" data-value="-">-</button>
-            <button class="number" data-value="7">7</button>
-            <button class="number" data-value="8">8</button>
-            <button class="number" data-value="9">9</button>
-            <button class="operator" data-value="*">*</button>
-            <button class="number" data-value="0">0</button>
-            <button class="operator" data-value="/">/</button>
-            <button id="equals">=</button>
-            <button id="clear">C</button>
-            <button id="speak">中文表达式</button>
-            <button id="memory-add">M+</button>
-            <button id="memory-subtract">M-</button>
-            <button id="memory-recall">MR</button>
-            <button id="memory-clear">MC</button>
-        </div>
+            <button class="btn" onclick="appendNumber(7)">7</button>
+            <button class="btn" onclick="appendNumber(8)">8</button>
+            <button class="btn" onclick="appendNumber(9)">9</button>
+            <button class="btn" onclick="appendOperator('+')">+</button>
+
+            <button class="btn" onclick="appendNumber(4)">4</button>
+            <button class="btn" onclick="appendNumber(5)">5</button>
+            <button class="btn" onclick="appendNumber(6)">6</button>
+            <button class="btn" onclick="appendOperator('-')">-</button>
+            <button class="btn" onclick="appendNumber(1)">1</button>
+            <button class="btn" onclick="appendNumber(2)">2</button>
+            <button class="btn" onclick="appendNumber(3)">3</button>
+            <button class="btn" onclick="appendOperator('*')">*</button>
+            <button class="btn" onclick="appendNumber(0)">0</button>
+            <button class="btn" onclick="appendOperator('.')">.</button>
+            <button class="btn" onclick="appendOperator('/')">/</button>
+            <button class="btn" onclick="calculate()">=</button>
+            <button class="btn" onclick="clearDisplay()">C</button>
+
+            <button class="btn" onclick="speakExpression()">说出表达式</button>
+            <div id="output" style="grid-column: span 2;" onmouseover="this.style.backgroundColor='#f0f0f0'; this.style.cursor='pointer';" onmouseout="this.style.backgroundColor=''; this.style.cursor='';"></div>
+          </div>
     </div>
     <script src="script.js"></script>
 </body>
