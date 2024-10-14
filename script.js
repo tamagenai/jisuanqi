@@ -34,6 +34,7 @@ const numberMap = {
 const unitMap = ['', '十', '百', '千', '万', '十万', '百万', '千万', '亿'];
 
 function convertNumberToChinese(num) {
+  
   let str = num.toString();
   let result = '';
   let isDecimal = false;
@@ -90,37 +91,43 @@ function convertNumberToChinese(num) {
  * @returns {string} - 中国語で表現された数式。例: "三 加 五 等于 八"
  */
 
+// 
 function convertExpressionToChinese(expression) {
-  const operators = {
-      '+': '加',
-      '-': '减',
-      '*': '乘',
-      '/': '除',
-      '=': '等于'
-  };
+    const operators = {
+        '+': '加',
+        '-': '减',
+        '*': '乘',
+        '/': '除',
+        '=': '等于'
+    };
 
-  let result = '';
-  let num = '';
+    let result = '';
+    let num = '';
 
-  for (let char of expression) {
-      if (char in numberMap || char === '.') {
-          num += char;
-      } else {
-          if (num) {
-              result += convertNumberToChinese(num);
-              num = '';
-          }
-          if (char in operators) {
-              result += ' ' + operators[char] + ' ';
-          }
-      }
-  }
+    for (let char of expression) {
+        if (char in numberMap || char === '.') {
+            num += char;
+        } else {
+            if (num) {
+                result += convertNumberToChinese(num);
+                num = '';
+            }
+            if (char in operators) {
+                result += ' ' + operators[char] + ' ';
+            }
+        }
+    }
 
-  if (num) {
-      result += convertNumberToChinese(num);
-  }
+    if (num) {
+        result += convertNumberToChinese(num);
+    }
 
-  return result;
+    // 計算結果が0の場合に零と表示
+    if (expression.endsWith('=0')) {
+        result += '零';
+    }
+
+    return result;
 }
 function appendNumber(number) {
     expression += number;
