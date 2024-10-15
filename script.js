@@ -1,16 +1,3 @@
-const express = require('express');
-const app = express();
-let accessCount = 0;
-
-app.get('/', (req, res) => {
-    accessCount++;
-    res.send(`アクセス数: ${accessCount}`);
-});
-
-app.listen(3000, () => {
-    console.log('サーバーがポート3000で起動しました');
-});
-
 const display = document.getElementById('display');
 const outputDiv = document.getElementById('output');
 let expression = '';
@@ -38,6 +25,7 @@ const operatorToChinese = {
     '=': '等于'
 };
 
+ 
 const numberMap = {
   '0': '零', '1': '一', '2': '二', '3': '三', '4': '四',
   '5': '五', '6': '六', '7': '七', '8': '八', '9': '九', '.': '点'
@@ -67,7 +55,7 @@ function convertNumberToChinese(num) {
   }
 
   // 桁の単位を追加
-  let integerPart = result.split('点');
+  let integerPart = result.split('点')[0];
   let integerResult = '';
   let zeroCount = 0;
 
@@ -96,6 +84,14 @@ function convertNumberToChinese(num) {
   return integerResult + (isDecimal ? '点' + decimalPart : '');
 }
 
+/**
+ * 数式を中国語に変換する関数。
+ * 
+ * @param {string} expression - 数式を表す文字列。例: "3+5=8"
+ * @returns {string} - 中国語で表現された数式。例: "三 加 五 等于 八"
+ */
+
+// 
 function convertExpressionToChinese(expression) {
     const operators = {
         '+': '加',
@@ -126,13 +122,13 @@ function convertExpressionToChinese(expression) {
         result += convertNumberToChinese(num);
     }
 
+    // 計算結果が0の場合に零と表示
     if (expression.endsWith('=0')) {
         result += '零';
     }
 
     return result;
 }
-
 function appendNumber(number) {
     expression += number;
     display.innerText = expression;
@@ -178,9 +174,9 @@ function speakExpression() {
     outputDiv.innerHTML = output + '<br>' + wPinyin;
 
     outputDiv.addEventListener('click', () => {
-        speechSynthesis.cancel();
+        speechSynthesis.cancel(); // 既存の音声出力をキャンセル
         const utterance = new SpeechSynthesisUtterance(output);
         utterance.lang = 'zh-CN';
-        window.speechSynthesis.speak(utterance);
+        speechSynthesis.speak(utterance);
     });
 }
